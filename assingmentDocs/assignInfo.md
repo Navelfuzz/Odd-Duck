@@ -17,6 +17,7 @@ The marketing team is not only interested in the total number of clicks, but als
 You are also responsible for the look and feel of the app, so don’t forget a custom font, color palette, layout with semantic HTML, and so on.
 
 ## User Stories
+
 User stories are a device commonly used in software development to identify what the functionality and design of a product should be by considering the interests and motivations of people with varied multiple points of view. They are presented in the manner of
 
     As a __, I want, so that __
