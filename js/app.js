@@ -1,7 +1,7 @@
 'use strict';
 
 /** Global Variables */
-let productContainer = document.querySelector('section');         //
+let productContainer = document.querySelector('section');
 let resultButton = document.querySelector('section + div');
 let image1 = document.querySelector('section img:first-child');
 let image2 = document.querySelector('section img:nth-child(2)');
@@ -88,7 +88,7 @@ function clickProduct(event){
 function renderResults(){
   let ul = document.querySelector('ul');
   for (let i = 0; i < state.allProductsArray.length; i++){
-    let li = document.createElement('li')
+    let li = document.createElement('li');
     li.textContent = `${state.allGoatsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].clicks} times.`;
     ul.appendChild(li);
   }
