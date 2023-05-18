@@ -20,7 +20,7 @@ let resultsList = document.getElementById('results-container');
 */
 function Product(name, src = 'jpg'){
   this.name = name;
-  this.src = `img/${name}.${src}`;
+  this.image = `img/${name}.${src}`;
   this.votes = 0;
   this.views = 0;
 }
