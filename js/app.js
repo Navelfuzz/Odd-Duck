@@ -20,7 +20,8 @@ let resultsList = document.getElementById('results-container');
 */
 function Product(name, imageExtension = 'jpg'){
   this.name = name;
-  this.image = `img/${name}.${imageExtension}`;
+  const extension = imageExtension === 'png' ? 'png' : 'jpg';
+  this.image = `img/${name.replace(/ /g, '-').toLowerCase()}.${extension}`;
   this.votes = 0;
   this.views = 0;
 }
@@ -95,25 +96,25 @@ function renderResults(){
 
 
 //executable
-let bag = new Product('bag', './img/bag.jpg');
-let banana = new Product('banana', './img/banana.jpg');
-let bathroom = new Product('bathroom', './img/bathroom.jpg');
-let boots = new Product('boots', './img/boots.jpg');
-let breakfast = new Product('breakfast', './img/breakfast.jpg');
-let bubblegum = new Product('bubblegum', './img/bubblegum.jpg');
-let chair = new Product('chair', './img/chair.jpg');
-let cthulhu = new Product('cthulhu', './img/cthulhu.jpg');
-let dogDuck = new Product('dog-duck', './img/dog-duck.jpg');
-let dragon = new Product('dragon', './img/dragon.jpg');
-let pen = new Product('pen', './img/pen.jpg');
-let petSweep = new Product('pet-sweep', './img/pet-sweep.jpg');
-let scissors = new Product('scissors', './img/scissors.jpg');
-let shark = new Product('shark', './img/shark.jpg');
-let sweep = new Product('sweep', './img/sweep.png');
-let tauntaun = new Product('tauntaun', './img/tauntaun.jpg');
-let unicorn = new Product('unicorn', './img/unicorn.jpg');
-let waterCan = new Product('water-can', './img/water-can.jpg');
-let wineGlass = new Product('wine-glass', './img/wine-glass.jpg');
+let bag = new Product('bag', '/img/bag.jpg');
+let banana = new Product('banana', '/img/banana.jpg');
+let bathroom = new Product('bathroom', '/img/bathroom.jpg');
+let boots = new Product('boots', '/img/boots.jpg');
+let breakfast = new Product('breakfast', '/img/breakfast.jpg');
+let bubblegum = new Product('bubblegum', '/img/bubblegum.jpg');
+let chair = new Product('chair', '/img/chair.jpg');
+let cthulhu = new Product('cthulhu', '/img/cthulhu.jpg');
+let dogDuck = new Product('dog-duck', '/img/dog-duck.jpg');
+let dragon = new Product('dragon', '/img/dragon.jpg');
+let pen = new Product('pen', '/img/pen.jpg');
+let petSweep = new Product('pet-sweep', '/img/pet-sweep.jpg');
+let scissors = new Product('scissors', '/img/scissors.jpg');
+let shark = new Product('shark', '/img/shark.jpg');
+let sweep = new Product('sweep', '/img/sweep.png');
+let tauntaun = new Product('tauntaun', '/img/tauntaun.jpg');
+let unicorn = new Product('unicorn', '/img/unicorn.jpg');
+let waterCan = new Product('water-can', '/img/water-can.jpg');
+let wineGlass = new Product('wine-glass', '/img/wine-glass.jpg');
 
 prodArray.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep,
   scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
