@@ -89,7 +89,7 @@ function renderResults(){
   let ul = document.querySelector('ul');
   for (let i = 0; i < state.allProductsArray.length; i++){
     let li = document.createElement('li');
-    li.textContent = `${state.allGoatsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].clicks} times.`;
+    li.textContent = `${state.allProductsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].clicks} times.`;
     ul.appendChild(li);
   }
 }
