@@ -50,9 +50,9 @@ function renderProducts() {
     product3 = getRandomNumber();
   }
 
-  image1.src = prodArray[product1].src;
-  image2.src = prodArray[product2].src;
-  image3.src = prodArray[product3].src;
+  image1.src = prodArray[product1].image;
+  image2.src = prodArray[product2].image;
+  image3.src = prodArray[product3].image;
 
   image1.title = prodArray[product1].name;
   image2.title = prodArray[product2].name;
