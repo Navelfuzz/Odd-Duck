@@ -95,7 +95,7 @@ function renderResults(){
 }
 
 //executable
-let bag = new Product('bag', './img/bag.png');
+let bag = new Product('bag', './img/bag.jpg');
 let banana = new Product('banana', './img/banana.jpg');
 let bathroom = new Product('bathroom', './img/bathroom.jpg');
 let boots = new Product('boots', './img/boots.jpg');
