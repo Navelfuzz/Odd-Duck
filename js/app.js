@@ -5,11 +5,11 @@ let votingRounds = 25;
 let prodArray = [];
 
 /** DOM */
-let productContainer = document.querySelector('img-container');
-let resultButton = document.querySelector('show-results-btn');
-let image1 = document.querySelector('img-one');
-let image2 = document.querySelector('img-two');
-let image3 = document.querySelector('img-three');
+let imgContainer = document.getElementById('img-container');
+let imgOne = document.getElementById('img-one');
+let imgTwo = document.getElementById('img-two');
+let imgThree = document.getElementById('img-three');
+let resultBtn = document.getElementById('show-results-btn');
 let resultsList = document.getElementById('results-container');
 
 /** Create a constructor function that creates an object associated with each product with the
@@ -39,28 +39,29 @@ function getRandomNumber() {
 */
 
 //same as renderImgs
-function renderProducts() {
-  let product1 = getRandomNumber();
-  let product2 = getRandomNumber();
-  let product3 = getRandomNumber();
+function renderImgs() {
+  let imageOneIndex = getRandomNumber();
+  let imageTwoIndex = getRandomNumber();
+  let imageThreeIndex = getRandomNumber();
 
   // Verify that none of the three products are the same
-  while (product1 === product2 || product1 === product3 || product2 === product3) {
-    product2 = getRandomNumber();
-    product3 = getRandomNumber();
+  while (imageOneIndex === imageTwoIndex || imageOneIndex === imageThreeIndex || imageTwoIndex === imageThreeIndex) {
+    imageTwoIndex = getRandomNumber();
+    imageThreeIndex = getRandomNumber();
   }
 
-  image1.src = prodArray[product1].image;
-  image2.src = prodArray[product2].image;
-  image3.src = prodArray[product3].image;
+  imgOne.src = prodArray[imageOneIndex].image;
+  imgOne.title = prodArray[imageOneIndex].name;
 
-  image1.title = prodArray[product1].name;
-  image2.title = prodArray[product2].name;
-  image3.title = prodArray[product3].name;
+  imgTwo.src = prodArray[imageTwoIndex].image;
+  imgTwo.title = prodArray[imageTwoIndex].name;
 
-  prodArray[product1].views++;
-  prodArray[product2].views++;
-  prodArray[product3].views++;
+  imgThree.src = prodArray[imageThreeIndex].image;
+  imgThree.title = prodArray[imageThreeIndex].name;
+
+  prodArray[imageOneIndex].views++;
+  prodArray[imageTwoIndex].views++;
+  prodArray[imageThreeIndex].views++;
 }
 
 /**Event handler */
@@ -71,11 +72,11 @@ function clickProduct(event){
     if(imageClicked === prodArray[i].name){
       prodArray[i].votes++;
       votingRounds--;
-      renderProducts();
+      renderImgs();
     }
   }
   if(votingRounds === 0){
-    productContainer.removeEventListener('click', clickProduct);
+    imgContainer.removeEventListener('click', clickProduct);
   }
 }
 
@@ -88,7 +89,7 @@ function renderResults(){
 
       resultsList.appendChild(prodListItem);
     }
-    resultButton.removeEventListener('click', renderResults);
+    resultBtn.removeEventListener('click', renderResults);
   }
 }
 
@@ -117,10 +118,10 @@ let wineGlass = new Product('wine-glass', './img/wine-glass.jpg');
 prodArray.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep,
   scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
 
-renderProducts();
+renderImgs();
 
-productContainer.addEventListener('click', clickProduct);
-resultButton.addEventListener('click', renderResults);
+imgContainer.addEventListener('click', clickProduct);
+resultBtn.addEventListener('click', renderResults);
 /** From the users POV
  *  1. track the selections made by viewers
  *  2. In the constructor function define a property to hold the # of times a product is clicked
