@@ -18,9 +18,9 @@ let resultsList = document.getElementById('results-container');
  * 2. File path of the image
  * 3. Times the image has been shown
 */
-function Product(name, src = 'jpg'){
+function Product(name, imageExtension = 'jpg'){
   this.name = name;
-  this.image = `img/${name}.${src}`;
+  this.image = `img/${name}.${imageExtension}`;
   this.votes = 0;
   this.views = 0;
 }
