@@ -1,19 +1,16 @@
 'use strict';
 
-/** Global Variables */
-let productContainer = document.querySelector('section');
-let resultButton = document.querySelector('section + div');
-let image1 = document.querySelector('section img:first-child');
-let image2 = document.querySelector('section img:nth-child(2)');
-let image3 = document.querySelector('section img:nth-child(3)');
+/**Globals */
+let votingRounds = 25;
+let prodArray = [];
 
-let clicks = 0;
-let maxClicks = 25;
-
-// Container for the objects:
-const state = {
-  allProductsArray: [],
-};
+/** DOM */
+let productContainer = document.querySelector('img-container');
+let resultButton = document.querySelector('show-results-btn');
+let image1 = document.querySelector('img-one');
+let image2 = document.querySelector('img-two');
+let image3 = document.querySelector('img-three');
+let resultsList = document.getElementById('results-container');
 
 /** Create a constructor function that creates an object associated with each product with the
  * following properties:
@@ -21,11 +18,16 @@ const state = {
  * 2. File path of the image
  * 3. Times the image has been shown
 */
-function Product(name, src) {
+function Product(name, src = 'jpg'){
   this.name = name;
-  this.src = src;
+  this.src = `img/${name}.${src}`;
+  this.votes = 0;
   this.views = 0;
-  //this.clicks = 0;
+}
+
+/**Helpers/Utils */
+function getRandomNumber() {
+  return Math.floor(Math.random() * prodArray.length);
 }
 
 
@@ -35,10 +37,8 @@ function Product(name, src) {
  *  3. Attach an event listener to the HTML section they are displayed
  *  4. Once the user 'clicks' a product, generate 3 new products for the user to pick
 */
-function getRandomNumber() {
-  return Math.floor(Math.random() * state.allProductsArray.length);
-}
 
+//same as renderImgs
 function renderProducts() {
   let product1 = getRandomNumber();
   let product2 = getRandomNumber();
@@ -50,49 +50,48 @@ function renderProducts() {
     product3 = getRandomNumber();
   }
 
-  image1.src = state.allProductsArray[product1].src;
-  image2.src = state.allProductsArray[product2].src;
-  image3.src = state.allProductsArray[product3].src;
+  image1.src = prodArray[product1].src;
+  image2.src = prodArray[product2].src;
+  image3.src = prodArray[product3].src;
 
-  image1.alt = state.allProductsArray[product1].name;
-  image2.alt = state.allProductsArray[product2].name;
-  image3.alt = state.allProductsArray[product3].name;
+  image1.title = prodArray[product1].name;
+  image2.title = prodArray[product2].name;
+  image3.title = prodArray[product3].name;
 
-  state.allProductsArray[product1].views++;
-  state.allProductsArray[product2].views++;
-  state.allProductsArray[product3].views++;
+  prodArray[product1].views++;
+  prodArray[product2].views++;
+  prodArray[product3].views++;
 }
 
+/**Event handler */
 function clickProduct(event){
-  if (event.target === productContainer){
-    alert('Please click on an image');
-  }
-  clicks++;
-  let clickProduct = event.target.alt;
-  for (let i = 0; i < state.allProductsArray.length; i++){
-    if (clickProduct === state.allProductsArray[i].name){
-      state.allProductsArray[i].clicks++;
-      break;
+  let imageClicked = event.target.title;
+
+  for(let i = 0; i < prodArray.length; i++){
+    if(imageClicked === prodArray[i].name){
+      prodArray[i].votes++;
+      votingRounds--;
+      renderProducts();
     }
   }
-  if (clicks === maxClicks){
+  if(votingRounds === 0){
     productContainer.removeEventListener('click', clickProduct);
-    resultButton.addEventListener('click', renderResults);
-    resultButton.className = 'clicks-allowed';
-    productContainer.className = 'no-voting';
-  } else {
-    renderProducts();
   }
 }
 
 function renderResults(){
-  let ul = document.querySelector('ul');
-  for (let i = 0; i < state.allProductsArray.length; i++){
-    let li = document.createElement('li');
-    li.textContent = `${state.allProductsArray[i].name} had ${state.allProductsArray[i].views} views and was clicked ${state.allProductsArray[i].clicks} times.`;
-    ul.appendChild(li);
+  if(votingRounds === 0){
+    for(let i = 0; i < prodArray.length; i++){
+      let prodListItem = document.createElement('li');
+
+      prodListItem.textContent = `${prodArray[i].name} - Votes: ${prodArray[i].votes} & Views: ${prodArray[i].views}`;
+
+      resultsList.appendChild(prodListItem);
+    }
+    resultButton.removeEventListener('click', renderResults);
   }
 }
+
 
 //executable
 let bag = new Product('bag', './img/bag.jpg');
@@ -114,13 +113,14 @@ let tauntaun = new Product('tauntaun', './img/tauntaun.jpg');
 let unicorn = new Product('unicorn', './img/unicorn.jpg');
 let waterCan = new Product('water-can', './img/water-can.jpg');
 let wineGlass = new Product('wine-glass', './img/wine-glass.jpg');
-state.allProductsArray.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep,
+
+prodArray.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep,
   scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
 
 renderProducts();
 
 productContainer.addEventListener('click', clickProduct);
-
+resultButton.addEventListener('click', renderResults);
 /** From the users POV
  *  1. track the selections made by viewers
  *  2. In the constructor function define a property to hold the # of times a product is clicked
